@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <title>Dashboard - solviXone</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/boxicon.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <script type="module">
+      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+      window.supabase = { createClient };
+    </script>
+</head>
+
+<body>
+    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand h1" href="index.html">
+                <i class='bx bx-buildings bx-sm text-dark'></i>
+                <span class="text-dark h4">solvi</span><span class="text-primary h4">Xone</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
+                <div class="flex-fill mx-xl-5 mb-2">
+                    <ul class="nav navbar-nav d-flex justify-content-start mx-xl-5 text-center text-dark">
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3 active" href="dashboard.html">Dashboard</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <span id="user-email" class="nav-link text-primary"></span>
+                    <a id="logout-button" class="nav-link" href="#" style="cursor: pointer;"><i class='bx bx-log-out bx-sm text-danger'></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h1 class="h2">Pesan Masuk</h1>
+                <p>Berikut adalah daftar pesan yang dikirim melalui formulir kontak.</p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Nama Lengkap</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Layanan</th>
+                                <th scope="col">Pesan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pesan-table-body">
+                            <tr>
+                                <td colspan="5" class="text-center p-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Memuat data...</span>
+                                    </div>
+                                    <p class="mt-2">Memuat data...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="pt-4" style="background-color: #0f172a;">
+      <div class="container">
+        <div class="row py-4">
+             <div class="col-lg-6 col-sm-12 mb-2 text-center text-lg-start">
+                 <p class="m-0 text-light">© 2025 <strong>solviXone</strong>. All rights reserved.</p>
+             </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module">
+        // 1. PENGATURAN KONEKSI SUPABASE
+        // Ganti dengan URL dan Kunci Anon Proyek Supabase Anda
+        const SUPABASE_URL = 'https://URL_PROYEK_ANDA.supabase.co';
+        const SUPABASE_ANON_KEY = 'KUNCI_ANON_PUBLIK_ANDA';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 2. FUNGSI UNTUK OTENTIKASI DAN LOGOUT
+        const userEmailElement = document.getElementById('user-email');
+        const logoutButton = document.getElementById('logout-button');
+
+        // Periksa sesi pengguna saat halaman dimuat
+        const session = supabase.auth.getSession();
+        if (!session) {
+            // Jika tidak ada sesi, arahkan ke halaman login
+            // Anda perlu membuat halaman login.html
+            window.location.href = 'login.html';
+        } else {
+             const { data: { user } } = await supabase.auth.getUser()
+            if(user) {
+              userEmailElement.textContent = user.email;
+            } else {
+               window.location.href = 'login.html';
+            }
+        }
+
+        // Tambahkan event listener untuk tombol logout
+        logoutButton.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+                console.error('Gagal logout:', error);
+            } else {
+                // Arahkan ke halaman login setelah berhasil logout
+                window.location.href = 'login.html';
+            }
+        });
+
+        // 3. FUNGSI UNTUK MENGAMBIL DAN MENAMPILKAN DATA
+        async function loadPesanMasuk() {
+            const tableBody = document.getElementById('pesan-table-body');
+            
+            // Ambil data dari tabel 'kontak_masuk', urutkan berdasarkan yang terbaru
+            const { data, error } = await supabase
+                .from('kontak_masuk')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Gagal mengambil data:', error);
+                tableBody.innerHTML = `<tr><td colspan="5" class="text-center text-danger">Gagal memuat data. Silakan coba lagi.</td></tr>`;
+                return;
+            }
+
+            if (data.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="text-center">Belum ada pesan masuk.</td></tr>`;
+                return;
+            }
+
+            // Kosongkan isi tabel sebelum memasukkan data baru
+            tableBody.innerHTML = '';
+
+            // Loop melalui setiap data dan buat baris tabel
+            data.forEach(pesan => {
+                const row = document.createElement('tr');
+                
+                // Format tanggal agar lebih mudah dibaca
+                const tanggal = new Date(pesan.created_at).toLocaleDateString('id-ID', {
+                    day: '2-digit', month: 'short', year: 'numeric', hour:'2-digit', minute:'2-digit'
+                });
+
+                row.innerHTML = `
+                    <td>${tanggal}</td>
+                    <td>${pesan.nama_lengkap}</td>
+                    <td><a href="mailto:${pesan.email}">${pesan.email}</a></td>
+                    <td>${pesan.kebutuhan_layanan}</td>
+                    <td>${pesan.pesan}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Panggil fungsi untuk memuat data saat halaman selesai dimuat
+        document.addEventListener('DOMContentLoaded', loadPesanMasuk);
+    </script>
+    
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

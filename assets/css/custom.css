@@ -1,0 +1,150 @@
+/* assets/css/custom.css (Final Definitive Fix) */
+
+/* 1. Definisi Variabel Warna (Root) */
+:root {
+    --primary-color: #a855f7;
+    --gradient-start: #7c3aed;
+    --gradient-end: #d946ef;
+    --dark-bg: #0f172a;
+    --light-text: #f8fafc;
+    --muted-text: #94a3b8;
+    --card-bg: #1e293b;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 2. Body & Preloader */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    overflow-x: hidden;
+}
+
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--dark-bg); z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
+}
+.spinner {
+    width: 50px; height: 50px; border: 5px solid var(--muted-text);
+    border-top: 5px solid var(--primary-color); border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }
+}
+
+/* 3. Navbar */
+#main_nav {
+    background-color: transparent;
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+#main_nav.scrolled {
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+.navbar-brand .text-primary, a.text-primary { color: var(--primary-color) !important; }
+.nav-link { transition: color 0.3s ease; }
+.nav-link:hover, .nav-link.active { color: var(--primary-color) !important; }
+
+/* 4. Hero Section & Page Header (Global) */
+.hero-section, .page-header {
+    position: relative; display: flex; align-items: center;
+    justify-content: center; overflow: hidden; background-color: var(--dark-bg);
+}
+.hero-section { height: 100vh; }
+.page-header { min-height: 40vh; padding: 100px 1rem; }
+.aurora-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+.aurora-shape { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; }
+.aurora-shape.shape1 { width: 400px; height: 400px; background: var(--gradient-start); top: 10%; left: 15%; animation: move1 15s infinite alternate; }
+.aurora-shape.shape2 { width: 350px; height: 350px; background: var(--gradient-end); bottom: 5%; right: 10%; animation: move2 12s infinite alternate; }
+.aurora-shape.shape3 { width: 300px; height: 300px; background: #4f46e5; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: move3 18s infinite alternate; }
+@keyframes move1 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(100px, 50px) rotate(45deg); } }
+@keyframes move2 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(-80px, -60px) rotate(-60deg); } }
+@keyframes move3 { from { transform: scale(1); } to { transform: scale(1.5); } }
+.hero-section .container, .page-header .container { position: relative; z-index: 1; }
+
+/* 5. Tombol Kustom */
+.btn-custom-gradient {
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    border: none; color: white !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-custom-gradient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 0 20px var(--primary-color);
+}
+
+/* 6. Kartu Umum (Service Card & Contact Card) */
+.service-card, .contact-card {
+    background-color: var(--card-bg); border: 1px solid var(--border-color);
+    border-radius: 12px; padding: 2rem; height: 100%;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover, .contact-card:hover {
+    transform: translateY(-8px); border-color: var(--primary-color);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+.service-card .icon-wrapper, .contact-card .icon-wrapper {
+    width: 60px; height: 60px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    color: white; font-size: 2rem; margin-bottom: 1rem;
+}
+.contact-card .icon-wrapper { margin-left: auto; margin-right: auto; }
+.service-card .text-muted, .text-muted { color: var(--muted-text) !important; }
+
+/* ... Kode dari 7 sampai 11 tetap sama ... */
+.service-work.card { border-radius: 12px; } .service-work .card-img { transition: transform 0.4s ease; } .service-work:hover .card-img { transform: scale(1.05); } .service-work .card-img-overlay { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 70%); opacity: 0.8; transition: opacity 0.4s ease; border-radius: 12px; } .service-work:hover .card-img-overlay { opacity: 1; } .service-work .service-work-content { transform: translateY(20px); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease; } .service-work:hover .service-work-content { transform: translateY(0); opacity: 1; } .filter-btn { padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 500; cursor: pointer; transition: all 0.4s ease-in-out; border: 2px solid var(--primary-color); background-color: transparent; color: var(--primary-color); } .filter-btn:hover { color: white; background: linear-gradient(to right, var(--gradient-start), var(--gradient-end)); border-color: var(--primary-color); box-shadow: 0 0 15px rgba(168, 85, 247, 0.7); transform: translateY(-2px); } .filter-btn.active { color: white; background: linear-gradient(to right, var(--gradient-start), var(--gradient-end)); border-color: var(--primary-color); box-shadow: 0 0 12px rgba(168, 85, 247, 0.7); } .cta-section { background: url('https://www.transparenttextures.com/patterns/cubes.png'), var(--card-bg); border-radius: 15px; padding: 4rem 2rem; } footer { background-color: #020617 !important; } .social-icons .social-icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: var(--card-bg); color: var(--muted-text); margin-right: 10px; transition: background-color 0.3s, color 0.3s, transform 0.3s; } .social-icons .social-icon:hover { background-color: var(--primary-color); color: white; transform: translateY(-3px); } .footer-link { color: var(--muted-text); text-decoration: none; transition: color 0.3s; } .footer-link:hover { color: var(--primary-color); } #cursor-glow { position: fixed; width: 500px; height: 500px; background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0) 70%); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: -1; transition: background 0.2s ease, transform 0.1s ease-out; display: none; } @media (min-width: 992px) { #cursor-glow { display: block; } }
+
+/*
+==============================================
+    12. ATURAN GLOBAL MOBILE
+==============================================
+*/
+@media (max-width: 767.98px) {
+    .display-3 { font-size: 2.8rem; }
+    .display-4 { font-size: 2.5rem; }
+    .h1 { font-size: 2.1rem; }
+    .hero-section { height: 80vh; }
+    section.py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    .cta-section { padding: 3rem 1.5rem; }
+    .contact-form-wrapper { padding: 1.5rem; }
+}
+
+/*
+==============================================
+    13. PERBAIKAN KHUSUS UNTUK ABOUT.HTML
+==============================================
+*/
+#threejs-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    min-height: 300px; /* ✅ Jaring pengaman agar tidak kolaps */
+    cursor: grab;
+    border-radius: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+#threejs-container canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+.skill-progress {
+    height: 10px;
+    background-color: var(--card-bg);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-progress .progress-bar {
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    transition: width 1.5s ease-in-out;
+}
+

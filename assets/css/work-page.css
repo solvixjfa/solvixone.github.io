@@ -1,0 +1,170 @@
+/* assets/css/work-page.css (Final Fix for Mobile Precision) */
+
+/* 1. Latar Belakang Abu-abu Gelap */
+.bg-light-dark {
+    background-color: #111827;
+}
+
+/* 2. Kartu Proyek (Work Card) */
+.work-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    /* ✅ PERBAIKAN: Menggunakan aspect-ratio agar responsif */
+    aspect-ratio: 4 / 5; 
+    height: auto; /* Biarkan tinggi diatur oleh aspect-ratio */
+}
+
+.work-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.work-card:hover .work-card-img {
+    transform: scale(1.1);
+}
+
+.work-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0) 100%);
+    color: white;
+    transform: translateY(30%);
+    transition: transform 0.4s ease;
+}
+
+.work-card:hover .work-card-overlay {
+    transform: translateY(0);
+}
+
+.work-card-tags {
+    margin-bottom: 0.5rem;
+}
+
+.work-card-tags .badge {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.work-card-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.work-card-text {
+    font-size: 0.9rem;
+    color: var(--muted-text);
+    opacity: 0;
+    transition: opacity 0.4s ease 0.1s;
+}
+
+.work-card:hover .work-card-text {
+    opacity: 1;
+}
+
+/* 3. Galeri Studi Kasus */
+.case-study-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 kolom untuk desktop */
+    gap: 1rem;
+}
+
+.case-study-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.case-study-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* 4. PENYESUAIAN UNTUK MOBILE (SANGAT PENTING) */
+@media (max-width: 767.98px) {
+    .work-card-overlay {
+        transform: translateY(0); /* Langsung tampilkan judul di mobile */
+    }
+    .work-card-text {
+        opacity: 1; /* Langsung tampilkan deskripsi di mobile */
+    }
+
+    /*  PERBAIKAN: Ubah galeri menjadi 1 kolom di mobile */
+    .case-study-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tambahkan ini ke assets/css/work-page.css */
+
+/* 5. Dasbor Hasil Studi Kasus */
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.stat-card {
+    background-color: rgba(30, 41, 59, 0.5); /* Sedikit transparan */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--light-text);
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--muted-text);
+}
+
+/* Penyesuaian untuk mobile */
+@media (max-width: 767.98px) {
+    .results-grid {
+        /* Tetap 2 kolom tapi dengan gap lebih kecil jika perlu */
+        gap: 0.75rem;
+    }
+    .stat-card {
+        padding: 1rem;
+    }
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    .stat-label {
+        font-size: 0.8rem;
+    }
+}
+
+
+

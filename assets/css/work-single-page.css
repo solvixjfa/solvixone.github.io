@@ -1,0 +1,166 @@
+/* assets/css/work-single-page.css (Final Fix for Mobile Precision) */
+
+/* 1. Latar Belakang Abu-abu Gelap */
+.bg-light-dark {
+    background-color: #111827;
+}
+
+/* 2. Timeline */
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Garis tengah timeline */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--card-bg);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+}
+
+/* Lingkaran pada timeline */
+.timeline-icon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: -25px;
+    top: 32px;
+    background-color: var(--primary-color);
+    border: 4px solid var(--dark-bg);
+    border-radius: 50%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* Item di sebelah kiri */
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+
+/* Item di sebelah kanan */
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+/* Icon untuk item di sebelah kanan */
+.timeline-item:nth-child(even) .timeline-icon {
+    left: -25px;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background-color: var(--card-bg);
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+/* ✅ BARU: Panah penunjuk pada kartu konten (untuk desktop) */
+.timeline-item:nth-child(odd) .timeline-content::after {
+    content: " ";
+    position: absolute;
+    top: 40px;
+    right: -15px;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid var(--card-bg);
+}
+
+.timeline-item:nth-child(even) .timeline-content::after {
+    content: " ";
+    position: absolute;
+    top: 40px;
+    left: -15px;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid var(--card-bg);
+}
+
+
+.timeline-step {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 3. Kutipan (Quote) */
+.custom-quote {
+    padding: 2rem;
+    border-left: 5px solid var(--primary-color);
+    background-color: rgba(30, 41, 59, 0.5);
+    border-radius: 8px;
+}
+
+.quote-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    opacity: 0.5;
+}
+
+.quote-text {
+    font-size: 1.25rem;
+    color: var(--light-text);
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.quote-author {
+    font-weight: 500;
+    color: var(--muted-text);
+}
+
+/* 4. PENYESUAIAN UNTUK MOBILE (SANGAT PENTING) */
+@media screen and (max-width: 768px) {
+    /* Garis timeline ke kiri */
+    .timeline::after {
+        left: 35px;
+    }
+
+    /* Semua item ke kanan */
+    .timeline-item {
+        width: 100%;
+        padding-left: 75px; /* Padding kiri disesuaikan */
+        padding-right: 15px; /* Padding kanan dikurangi */
+    }
+
+    /* Item kanan tidak perlu di-offset */
+    .timeline-item:nth-child(even) {
+        left: 0%;
+    }
+
+    /* Icon ke kiri */
+    .timeline-icon {
+        left: 10px;
+    }
+
+    /*  BARU: Panah penunjuk untuk mobile (selalu di kiri) */
+    .timeline-item .timeline-content::after {
+        content: " ";
+        position: absolute;
+        top: 40px;
+        left: -15px;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+        border-right: 15px solid var(--card-bg);
+        border-left: 0; /* Hapus panah kiri */
+    }
+}
+

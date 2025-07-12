@@ -1,0 +1,199 @@
+/* --- Global & Font --- */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.bg-dark-custom {
+    background-color: #0f172a;
+}
+
+/* --- NAVBAR DINAMIS (VERSI FINAL: HITAM & SLIDE HALUS) --- */
+
+#main_nav {
+    background: transparent;
+    /* PERUBAHAN: Transisi diperhalus dengan cubic-bezier */
+    transition: background-color 0.5s ease, transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    transform: translateY(0);
+}
+
+#main_nav .nav-link,
+#main_nav .navbar-brand,
+#main_nav .bx {
+    /* Warna teks saat di atas (latar terang) */
+    color: #212529 !important;
+}
+#main_nav .text-primary {
+    color: #0d6efd !important;
+}
+
+/* Keadaan navbar saat halaman di-scroll */
+#main_nav.navbar-scrolled {
+    background-color: rgba(17, 24, 39, 0.85); /* Hitam transparan dengan efek glass */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Warna teks saat navbar menjadi gelap */
+#main_nav.navbar-scrolled .nav-link,
+#main_nav.navbar-scrolled .navbar-brand,
+#main_nav.navbar-scrolled .bx {
+    color: #ffffff !important;
+}
+#main_nav.navbar-scrolled .text-primary {
+    color: #5893fa !important; /* Warna biru yang lebih cerah agar kontras */
+}
+
+/* Kelas untuk menyembunyikan navbar saat scroll ke bawah */
+#main_nav.navbar-hidden {
+    transform: translateY(-110%);
+}
+
+/* --- TAMBAHAN: EFEK INTERAKTIF PADA LOGO & IKON NAVBAR --- */
+
+/* Efek untuk logo */
+#main_nav .navbar-brand {
+    transition: transform 0.3s ease-in-out;
+}
+#main_nav .navbar-brand:hover {
+    transform: scale(1.05); /* Sedikit membesar saat disentuh kursor */
+}
+
+/* Efek untuk ikon di kanan */
+#main_nav .navbar .nav-link .bx {
+    transition: transform 0.3s ease-in-out, color 0.3s ease;
+}
+#main_nav .navbar .nav-link:hover .bx {
+    transform: translateY(-3px); /* Sedikit terangkat */
+    color: #5893fa !important; /* Warna berubah menjadi biru aksen */
+}
+
+/* --- EFEK ANIMASI GARIS BAWAH PADA LINK NAVBAR --- */
+
+.navbar-nav .nav-link {
+    position: relative;
+    padding-bottom: 8px; /* Beri sedikit ruang untuk garis bawah */
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #5893fa;
+    transform: scaleX(0);
+    transform-origin: center; /* Tumbuh dari tengah */
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.navbar-nav .nav-link:hover::after {
+    transform: scaleX(1); /* Garis bawah muncul dengan animasi */
+}
+
+/* --- EFEK DENYUT (PULSE) UNTUK TOMBOL --- */
+.pulse-effect {
+    animation: pulse 2.5s infinite;
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 12px rgba(124, 58, 237, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+    }
+}
+
+/* --- Animasi Saat Scroll --- */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Tombol Filter Layanan (dengan Efek Glass) --- */
+.filter-btn-group {
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.filter-btn {
+    border: 2px solid #a855f7;
+    color: #a855f7;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: linear-gradient(to right, #7c3aed, #d946ef);
+    color: white;
+    border-color: #a855f7;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.7);
+}
+
+/* --- Efek Hover pada Kartu --- */
+.service-work,
+.recent-work {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.service-work:hover,
+.recent-work:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.service-work .card-img,
+.recent-work .card-img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.service-work:hover .card-img,
+.recent-work:hover .card-img {
+    transform: scale(1.05);
+}
+
+/* --- Seksi Fakta & Angka (Counters) --- */
+.facts-section {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+.fact-item {
+    padding: 20px;
+}
+
+.fact-item .bx {
+    color: #7c3aed;
+    margin-bottom: 15px;
+}
+
+.fact-item h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.fact-item p {
+    font-size: 1rem;
+    color: #6c757d;
+}

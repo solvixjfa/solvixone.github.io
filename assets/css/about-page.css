@@ -1,0 +1,85 @@
+/* assets/css/about-page.css (Final Fix for Mobile Precision) */
+
+/* 1. Page Header */
+.page-header {
+    position: relative;
+    padding: 100px 1rem; /* Menambahkan padding horizontal untuk mobile */
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--dark-bg);
+}
+
+.page-header .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* 2. Latar Belakang Abu-abu Gelap */
+.bg-light-dark {
+    background-color: #111827;
+}
+
+/* 3. Container Animasi 3D (SANGAT PENTING) */
+#threejs-container {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Menjaga bentuk kotak di semua ukuran layar */
+    height: auto; /* Biarkan height diatur oleh aspect-ratio */
+    cursor: grab;
+    border-radius: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    /* Fallback jika JS gagal: Tampilkan ikon sebagai latar belakang */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8rem; /* Ukuran ikon fallback */
+    color: rgba(168, 85, 247, 0.2); /* Warna ikon fallback */
+}
+
+/* Ikon fallback menggunakan ::before pseudo-element */
+#threejs-container::before {
+    content: '\ebcb'; /* Kode ikon Boxicons untuk 'bx-cube-alt' */
+    font-family: 'Boxicons';
+    line-height: 1;
+}
+
+/* Sembunyikan ikon fallback jika canvas berhasil dibuat oleh JS */
+#threejs-container > canvas {
+    position: absolute; /* Pastikan canvas menutupi ikon */
+}
+
+
+/* 4. Styling untuk Progress Bars (Keahlian) */
+.skill {
+    position: relative;
+}
+
+.skill-progress {
+    height: 10px;
+    background-color: var(--card-bg);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-progress .progress-bar {
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    transition: width 1.5s ease-in-out;
+}
+
+/* 5. Penyesuaian Tipografi untuk Mobile */
+@media (max-width: 767.98px) {
+    .display-4 { font-size: 2.5rem; }
+    .h1 { font-size: 2.1rem; }
+
+    /* Memberi ruang lebih di section utama */
+    section.py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+}
+
